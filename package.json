@@ -1,0 +1,28 @@
+{
+  "name": "591parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "591parser.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cosrick/591parser.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cosrick/591parser/issues"
+  },
+  "homepage": "https://github.com/cosrick/591parser#readme",
+  "dependencies": {
+    "cheerio": "^0.20.0",
+    "cron": "^1.1.0",
+    "facebook-chat-api": "^1.1.0",
+    "fs-promise": "^0.5.0",
+    "q": "^1.4.1",
+    "request-promise": "^3.0.0",
+    "url": "^0.11.0"
+  }
+}
