@@ -66,7 +66,7 @@ var getMrtData = function(mrtcode){
 		  		});
 		  	}
 		});
-		
+
 		return newhouselist
 	}
 
@@ -124,8 +124,10 @@ var getMrtData = function(mrtcode){
 
 var main = function(){
 
+	var delayedGet = rateLimit(getMrtData, 1, 1000);
+
 	MRTS.map(function (mrt) {
-		return getMrtData(mrt)
+		return delayedGet(mrt)
 	}).reduce(Q.when, Q())
 	.then(function(){
 		return 0;
@@ -145,6 +147,28 @@ if (require.main === module) {
 }
 
 module.exports = main;
+
+function rateLimit (fn, limit, ms) {
+	var callsInLastSecond = 0;
+	var delay             = ms || 1000;
+	var queue             = [];
+	return function limited() {
+		if (callsInLastSecond >= limit) {
+			queue.push([this, arguments]);
+			return;
+		}
+		callsInLastSecond++;
+		setTimeout(function () {
+			callsInLastSecond--;
+			var parms;
+			if (parms = queue.shift()) {
+				limited.apply(parms[0], parms[1]);
+			}
+		}, delay);
+
+		fn.apply(this, arguments);
+	};
+};
 
 
 

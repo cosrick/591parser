@@ -20,7 +20,10 @@ var main = function(houselist){
 			})
 
 			api.sendMessage(message, to,function(messageInfo){
-				deffered.resolve()
+				api.logout(function(){
+					deffered.resolve()
+				})
+				
 			});
 		}
 	});
