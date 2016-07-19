@@ -7,6 +7,9 @@ var main = function(houselist){
 	var deffered = Q.defer();
 	var to = "100001406078788";
 
+	// Rick 	= "100000207901749"
+	// Kelly	= "100001406078788"
+
 
 	login({email: "rick830620@gmail.com", password: "rick83062"}, function callback(err, api) {
 		if(err){
@@ -16,7 +19,7 @@ var main = function(houselist){
 			houselist.forEach(function(house){
 				message = message + [house.address,house.pattern,house.mrtStation].join(' ');
 				message = message + ' $' + house.price + '\n';
-				message = message + "https://rent.591.com.tw/rent-detail-" + house.id + '.html\n'; 
+				message = message + "https://rent.591.com.tw/rent-detail-" + house.id + '.html?f_stat=\n'; 
 			})
 
 			api.sendMessage(message, to,function(messageInfo){

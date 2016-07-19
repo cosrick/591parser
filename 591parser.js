@@ -8,7 +8,8 @@ var fs 			= require('fs-promise');
 
 
 var baseURL = "https://rent.591.com.tw/index.php";
-var MRTS 	= [4184,4231,4232,4233,4234,4246,4247,4205,4190];	//古亭 頂溪 永安市場 景安 南勢角 萬隆 景美 象山 六張犁 
+// var MRTS 	= [4184,4231,4232,4233,4234,4246,4247,4205,4190];	//古亭 頂溪 永安市場 景安 南勢角 萬隆 景美 象山 六張犁 
+var MRTS 	= [4184,4231,4232,4233,4234];	//古亭 頂溪 永安市場 景安 南勢角 萬隆 景美 象山 六張犁 
 
 var query 	= {
 	module 		: 'search',
@@ -51,7 +52,7 @@ var getMrtData = function(mrtcode){
 		  	var popularity 	= parseInt(element.children('.pattern').text().replace('人',''));
 		  	if (popularity < 50){
 		  		var infos 		= element.children('.info').children('.right').text().split('\r\n');
-		  		var id 			= element.children('.info').children('.right').children('.title').children().attr('href').replace('.html','').split('-')[2];
+		  		var id 			= element.children('.info').children('.right').children('.title').children().attr('href').replace('.html?f_stat=','').split('-')[2];
 		  		var address 	= infos[2].trim();
 		  		var pattern 	= infos[3].split('，')[1];
 		  		var mrtStation 	= infos[5].trim().split(' ')[1];
