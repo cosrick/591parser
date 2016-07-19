@@ -21,11 +21,11 @@ var query 	= {
 	listview 	: 'img',
 	mrt 		: 1,
 	// mrtcoods 	: MRTS.join(','),
-	pattern 	: 3,					//三房
-	option 		: "naturalgas",			//天然瓦斯
-	rentprice 	: '15000,30000',		//價錢區間
-	other 		: 'cook',				//可開伙
-	kind 		: 1,					//整層住家
+	pattern 	: 3,												//三房
+	option 		: "cold,icebox,hotwater,washer,naturalgas",			//冷氣、冰箱、熱水器、洗衣機、天然瓦斯
+	rentprice 	: '15000,30000',									//價錢區間
+	other 		: 'cook',											//可開伙
+	kind 		: 1,												//整層住家
 
 }
 
@@ -51,7 +51,6 @@ var getMrtData = function(mrtcode){
 		  	var element 	= $(this).children('.shInfo')
 		  	var popularity 	= parseInt(element.children('.pattern').text().replace('人',''));
 		  	if (popularity < 50){
-		  		console.log(element.children('.info').children('.right').children('.title').children().attr('href'))
 		  		var infos 		= element.children('.info').children('.right').text().split('\r\n');
 		  		var id 			= element.children('.info').children('.right').children('.title').children().attr('href').replace('.html','').replace("?f_stat=","").split('-')[2];
 		  		var address 	= infos[2].trim();
@@ -126,7 +125,7 @@ var getMrtData = function(mrtcode){
 
 var main = function(){
 
-	var delayedGet = rateLimit(getMrtData, 1, 1000);
+	var delayedGet = rateLimit(getMrtData, 1, 10000);
 
 	MRTS.map(function (mrt) {
 		return delayedGet(mrt)
