@@ -51,8 +51,9 @@ var getMrtData = function(mrtcode){
 		  	var element 	= $(this).children('.shInfo')
 		  	var popularity 	= parseInt(element.children('.pattern').text().replace('人',''));
 		  	if (popularity < 50){
+		  		console.log(element.children('.info').children('.right').children('.title').children().attr('href'))
 		  		var infos 		= element.children('.info').children('.right').text().split('\r\n');
-		  		var id 			= element.children('.info').children('.right').children('.title').children().attr('href').replace('.html?f_stat=','').split('-')[2];
+		  		var id 			= element.children('.info').children('.right').children('.title').children().attr('href').replace('.html','').replace("?f_stat=","").split('-')[2];
 		  		var address 	= infos[2].trim();
 		  		var pattern 	= infos[3].split('，')[1];
 		  		var mrtStation 	= infos[5].trim().split(' ')[1];
