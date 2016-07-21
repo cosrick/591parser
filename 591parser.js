@@ -4,6 +4,7 @@ var Q           = require('q');
 var cheerio 	= require('cheerio');
 var config 		= require('./config.js');
 var sendChat 	= require('./sendChat.js');
+var sendMail 	= require('./sendmail.js');
 var fs 			= require('fs-promise');
 
 
@@ -80,7 +81,7 @@ var getMrtData = function(mrtcode){
 					return history.indexOf(house.id) == -1
 				})
 				if (newlist.length > 0){
-					return sendChat(newlist).then(function(){
+					return sendMail(newlist).then(function(){
 							return fs.appendFile('seen.txt', newlist.map(function(info){return info.id}).join('\n') + '\n') 
 						})
 				}
