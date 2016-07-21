@@ -22,6 +22,7 @@
     "facebook-chat-api": "^1.1.0",
     "fs-promise": "^0.5.0",
     "nodemailer": "^2.5.0",
+    "nodemailer-smtp-transport": "^2.6.0",
     "q": "^1.4.1",
     "request-promise": "^3.0.0",
     "url": "^0.11.0"

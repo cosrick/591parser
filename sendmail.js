@@ -1,8 +1,18 @@
 var nodemailer = require('nodemailer');
 var Q     = require('q');
 
+var smtpTransport = require('nodemailer-smtp-transport');
+
+var transporter = nodemailer.createTransport(smtpTransport({
+    service: 'gmail',
+    auth: {
+        user: 'rick830620@gmail.com', // my mail
+        pass: 'rick83062'
+    }
+}));
+
 // create reusable transporter object using the default SMTP transport 
-var transporter = nodemailer.createTransport('smtps://rick830620@gmail.com:rick83062@smtp.gmail.com');
+// var transporter = nodemailer.createTransport('smtps://rick830620@gmail.com:rick83062@smtp.gmail.com');
  
 // setup e-mail data with unicode symbols 
 var mailOptions = {
