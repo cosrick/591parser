@@ -8,33 +8,19 @@ var sendMail 	= require('./sendmail.js');
 var fs 			= require('fs-promise');
 
 
-var baseURL = "https://rent.591.com.tw/index.php";
-// var MRTS 	= [4184,4231,4232,4233,4234,4246,4247,4205,4190];	//古亭 頂溪 永安市場 景安 南勢角 萬隆 景美 象山 六張犁 
-var MRTS 	= [4184,4231,4232,4233,4234];	//古亭 頂溪 永安市場 景安 南勢角 萬隆 景美 象山 六張犁 
+var baseURL = config.baseURL;
+var MRTS 	= config.search;
+var query 	= config.query;
 
-var query 	= {
-	module 		: 'search',
-	action 		: 'rslist',
-	is_new_list : 1,
-	type		: 1,
-	searchtype 	: 4,
-	region 		: 1,
-	listview 	: 'img',
-	mrt 		: 1,
-	// mrtcoods 	: MRTS.join(','),
-	pattern 	: 3,												//三房
-	option 		: "cold,icebox,hotwater,washer,naturalgas",			//冷氣、冰箱、熱水器、洗衣機、天然瓦斯
-	rentprice 	: '15000,30000',									//價錢區間
-	other 		: 'cook',											//可開伙
-	kind 		: 1,												//整層住家
-
-}
-
-var getMrtData = function(mrtcode){
+var getMrtData = function(constraints){
 
 	var reqUrl = url.parse(baseURL);
+
+	for (key in constraints){
+		query[key] = constraints[key];
+	}
 	reqUrl.query = query;
-	reqUrl.query.mrtcoods = mrtcode;
+
 	var parseUrl = reqUrl.format();
 
 	var option = {
@@ -126,10 +112,10 @@ var getMrtData = function(mrtcode){
 
 var main = function(){
 
-	var delayedGet = rateLimit(getMrtData, 1, 10000);
+	var delayedGet = rateLimit(getMrtData, 1, 5000);
 
-	MRTS.map(function (mrt) {
-		return delayedGet(mrt)
+	MRTS.map(function (constraints) {
+		return delayedGet(constraints)
 	}).reduce(Q.when, Q())
 	.then(function(){
 		return 0;
