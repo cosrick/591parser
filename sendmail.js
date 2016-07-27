@@ -17,7 +17,7 @@ var transporter = nodemailer.createTransport(smtpTransport({
 // setup e-mail data with unicode symbols 
 var mailOptions = {
     from: '"RickLee" <rick830620@gmail.com>', // sender address 
-    to: 'rick830620@gmail.com, yoyo420303@gmail.com', // list of receivers 
+    to: 'foronce0306@gmail.com', // list of receivers 
     subject: 'New House Released', // Subject line
 };
  
@@ -26,15 +26,25 @@ var main = function(houselist){
 	var deffered = Q.defer();
 	var message = "";
 
+	//Kelly Constraint
+	// houselist.forEach(function(house){
+	// 	message = message + [house.address,house.pattern,house.mrtStation].join(' ');
+	// 	message = message + ' $' + house.price + '\n';
+	// 	message = message + "https://rent.591.com.tw/rent-detail-" + house.id + '.html?f_stat=\n'; 
+	// })
+
+	// mailOptions.text = message;
+	// mailOptions.subject = houselist[0].mrtStation + ' New House Released';
 
 	houselist.forEach(function(house){
-		message = message + [house.address,house.pattern,house.mrtStation].join(' ');
+		message = message + [house.address, house.floors].join(' ');
 		message = message + ' $' + house.price + '\n';
-		message = message + "https://rent.591.com.tw/rent-detail-" + house.id + '.html?f_stat=\n'; 
+		message = message + "https://rent.591.com.tw/rent-detail-" + house.id + '.html\n'; 
+
 	})
 
 	mailOptions.text = message;
-	mailOptions.subject = houselist[0].mrtStation + ' New House Released';
+	mailOptions.subject = ' New House Released';
 
 	// send mail with defined transport object 
 	transporter.sendMail(mailOptions, function(error, info){
